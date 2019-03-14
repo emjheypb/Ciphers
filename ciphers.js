@@ -98,7 +98,7 @@ function execute() {
           } else {
             encDec.innerHTML += polyalphabeticDecrypt(key.charAt(key.length % shift),string.charAt(i));
           }
-          // shift++;
+          shift++;
           // if(shift >= key.length) { shift = 0; }
         } else {
           if(string.charCodeAt(i) == 10) { encDec.innerHTML += '</br>'; }
