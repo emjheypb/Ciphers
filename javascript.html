@@ -1,0 +1,44 @@
+<html>
+<head>
+<script>
+	function binaryEncrypt(letter) {
+	    var binary = letter.charCodeAt(0).toString(2);
+	    do{
+	    	binary = 0 + binary;
+	    } while(binary.length != 8);
+	    return binary;
+	}
+
+	function binaryDecrypt(binary) {
+		if(binary.length == 8) {
+			return String.fromCharCode(parseInt(binary,2));
+		} else {
+			return "";
+		}
+	}
+
+	function cipher(type) {
+		encDec.innerHTML = "";
+		if(type.id == "encrypt") {
+			var list = type.value.split("");
+			for(var i = 0; i < list.length; i++) {
+				encDec.innerHTML += binaryEncrypt(list[i]) + " ";
+			}
+		} else {
+			var list = type.value.split(" ");
+			for(var i = 0; i < list.length; i++) {
+				encDec.innerHTML += binaryDecrypt(list[i]);
+			}
+		}
+	}
+</script>
+</head>
+
+<body>
+	<textarea type="text" onkeyup="cipher(this)" id="encrypt"></textarea>
+	<br/><br/>
+	<textarea type="text" onkeyup="cipher(this)" id="decrypt"></textarea>
+	<p id='encDec'></p>
+</body>
+
+</html>

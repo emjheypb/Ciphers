@@ -1,0 +1,75 @@
+<html>
+	<head>
+		<title>Polyalphabetic Cipher</title>
+		<script>
+			function regCheck(pattern, str) {
+				var regex = new RegExp(pattern);
+				var result = regex.test(str);
+
+				return result;
+			}
+
+			function populateX(start) {
+				var x = [];
+				for(var i = start; i <= start + 25; i++) {
+					if(i <= 90) { x.push(i); }
+					else { x.push(i-26); }
+				}
+				return x;
+			}
+
+			function encrypt(key, letter) {
+				var x = populateX(letter.charCodeAt(0));
+				var i = key.charCodeAt(0)-65;
+				return String.fromCharCode(x[i]);
+			}
+
+			function decrypt(key, letter) {
+				var x = populateX(65);
+				var i = letter.charCodeAt(0)-key.charCodeAt(0);
+				if(i < 0) { i += 26; }
+				return String.fromCharCode(x[i]);
+			}
+
+			function execute() {
+				var string = document.getElementById("string").value.toUpperCase();
+				var key = document.getElementById("key").value.toUpperCase();
+				var shift = document.getElementById("shift").value;
+				encDec.innerHTML = "";
+
+				for (var i = 0; i <= string.length; i++){
+					if (regCheck('[A-Z]',string.charAt(i))) {
+						if (document.getElementById("e").checked) {
+							encDec.innerHTML += encrypt(key.charAt(shift),string.charAt(i));
+						} else {
+							encDec.innerHTML += decrypt(key.charAt(shift),string.charAt(i));
+						}
+						shift++;
+						if(shift >= key.length) { shift = 0; }
+					} else {
+						if(string.charCodeAt(i) == 10) { encDec.innerHTML += '</br>'; }
+						else { encDec.innerHTML += string.charAt(i); }
+					}
+				}
+			}
+		</script>
+		<style>
+			.tb { background-color:white; }
+			body { width: 100px; }
+		</style>
+	</head>
+	<body>
+		<h1>Polyalphabetic Cipher</h1>
+		<table>
+			<tr><td>Key:</td><td><input type="text" id="key" class="tb" value="roadstreetexecutivesmithcity" onkeyup="execute();"/></td></tr>
+			<tr><td>Shift:</td><td><input type="text" id="shift" class="tb" onkeyup="execute();" autocomplete="off"/></td></tr>
+			<form>
+				<tr><td><input type="radio" name="cipherType" id="e" checked="true" onclick="execute();">Encrypt</td><td><input type="radio" name="cipherType" id="d" onclick="execute();">Decrypt</td></tr>
+			</form>
+			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+			<tr><td colspan="2"><textarea rows="4" cols="50" id="string" onkeyup="execute();"></textarea></td></tr>
+			<tr><td colspan="2"><p id="encDec"></p></td></tr>
+			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+		</table>
+	</body>
+</html>

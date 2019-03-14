@@ -1,0 +1,82 @@
+<html>
+<head>
+<script>
+	var morseCode = {
+		".-" : "Aa",
+		"-..." : "Bb",
+		"-.-." : "Cc",
+		"-.." : "Dd",
+		"." : "Ee",
+		"..-." : "Ff",
+		"--." : "Gg",
+		"...." : "Hh",
+		".." : "Ii",
+		".---" : "Jj",
+		"-.-" : "Km",
+		".-.." : "Ll",
+		"--" : "Mm",
+		"-." : "Nn",
+		"---" : "Oo",
+		".--." : "Pp",
+		"--.-" : "Qq",
+		".-." : "Rr",
+		"..." : "Ss",
+		"-" : "Tt",
+		"..-" : "Uu",
+		"...-" : "Vv",
+		".--" : "Ww",
+		"-..-" : "Xx",
+		"-.--" : "Yy",
+		"--.." : "Zz",
+		".----" : "1",
+		"..---" : "2",
+		"...--" : "3",
+		"....-" : "4",
+		"....." : "5",
+		"-...." : "6",
+		"--..." : "7",
+		"---.." : "8",
+		"----." : "9",
+		"-----" : "0"	
+	};
+
+	function binaryEncrypt(letter) {
+	    for (var x in morseCode) {
+	    	if (morseCode[x].indexOf(letter) > -1) { return x; };
+		}
+	    return letter;
+	}
+
+	function binaryDecrypt(binary) {
+		if(morseCode[binary] != undefined) {
+			return morseCode[binary].charAt(0);
+		} else {
+			return binary;
+		}
+	}
+
+	function cipher(type) {
+		encDec.innerHTML = "";
+		if(type.id == "encrypt") {
+			var list = type.value.split("");
+			for(var x in list) {
+				encDec.innerHTML += binaryEncrypt(list[x]) + " ";
+			}
+		} else {
+			var list = type.value.split(" ");
+			for(var x in list) {
+				encDec.innerHTML += binaryDecrypt(list[x]);
+			}
+		}
+	}
+</script>
+</head>
+
+<body>
+	<textarea type="text" onkeyup="cipher(this)" id="encrypt"></textarea>
+	<br/><br/>
+	<textarea type="text" onkeyup="cipher(this)" id="decrypt"></textarea>
+	<p id='encDec'></p>
+</body>
+
+</html>

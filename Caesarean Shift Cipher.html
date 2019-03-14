@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<title>Casesarian Shift Cipher</title>
+		<script>
+			function regCheck(pattern, str, element)
+			{
+				var regex = new RegExp(pattern);
+				var result = regex.test(str);
+				var thing = str;
+				
+				if(!result)
+					document.getElementById(element).value = thing.substring(0,thing.length-1);
+			}
+
+			function cipher(text) {
+				var regex = new RegExp('[A-Za-z]');
+				var shift = document.getElementById('shift').value;
+				var ch;
+				encDec.innerHTML = "";
+
+				if (shift == "") { shift = 0; }
+
+				for(var i = 0; i <= text.length; i++) {
+					ch = text.charAt(i);
+					if(regex.test(ch)) {
+						ch = text.charAt(i).charCodeAt();
+						if (document.getElementById("e").checked) {
+							ch += parseInt(shift);
+							if ((ch > 90 && ch < 97) || (ch > 122)) {
+								ch -= 26;
+							}
+						} else {
+							ch -= parseInt(shift);
+							if ((ch < 65) || (ch < 97 && ch > 90)) {
+								ch += 26;
+							} else {
+								
+							}
+						}
+					} else {
+						ch = text.charAt(i).charCodeAt();
+						if(ch == 10) { encDec.innerHTML += '</br>'; }
+					}
+					encDec.innerHTML += String.fromCharCode(ch);
+				}
+			}
+		</script>
+		<style>
+			.tb { background-color:white; }
+			body { width: 100px; }
+		</style>
+	</head>
+	<body>
+		<h1>Caesarian Shift Cipher</h1>
+		<table>
+			<tr><td>Shift:</td><td><input type="text" id="shift" class="tb" onkeyup="regCheck('^-?[0-9]*$', document.getElementById('shift').value, 'shift'); cipher(document.getElementById('thing').value);" autocomplete="off"/></td></tr>
+			<form>
+				<tr><td><input type="radio" name="cipherType" id="e" checked="true" onclick="cipher(document.getElementById('thing').value)">Encrypt</td><td><input type="radio" name="cipherType" id="d" onclick="cipher(document.getElementById('thing').value)">Decrypt</td></tr>
+			</form>
+			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+			<tr><td colspan="2"><textarea rows="4" cols="50" id="thing" onkeyup="cipher(document.getElementById('thing').value)"></textarea></td></tr>
+			<tr><td colspan="2"><p id="encDec"></p></td></tr>
+			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+		</table>
+	</body>
+</html>
