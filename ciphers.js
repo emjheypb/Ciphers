@@ -91,7 +91,7 @@ function execute() {
     case "polyalphabetic":
       var shift = $("#pShift").val();
 
-      for (var i = 0; i <= string.length; i++){
+      for (var i = 0; i < string.length; i++){
         if (regCheck('[A-Z]',string.charAt(i))) {
           if ($("#radioEncrypt").is(':checked')) {
             encDec.innerHTML += polyalphabeticEncrypt(key.charAt(shift % key.length),string.charAt(i));
