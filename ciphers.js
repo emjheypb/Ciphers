@@ -94,9 +94,9 @@ function execute() {
       for (var i = 0; i <= string.length; i++){
         if (regCheck('[A-Z]',string.charAt(i))) {
           if ($("#radioEncrypt").is(':checked')) {
-            encDec.innerHTML += polyalphabeticEncrypt(key.charAt(shift),string.charAt(i));
+            encDec.innerHTML += polyalphabeticEncrypt(key.charAt(shift%key.length),string.charAt(i));
           } else {
-            encDec.innerHTML += polyalphabeticDecrypt(key.charAt(shift),string.charAt(i));
+            encDec.innerHTML += polyalphabeticDecrypt(key.charAt(shift%key.length),string.charAt(i));
           }
           shift++;
           if(shift >= key.length) { shift = 0; }
